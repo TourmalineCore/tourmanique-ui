@@ -42,6 +42,8 @@ function GalleriesList({
           id,
           name,
           previewPhotos,
+          // @ts-ignore
+          photosCount
         }) => (
           <li
             className="galleries-list__item"
@@ -60,7 +62,7 @@ function GalleriesList({
               onDelete={() => {
                 onGalleryDelete(id);
               }}
-              photosCount={previewPhotos.length}
+              photosCount={photosCount}
               previewPhotos={previewPhotos}
             />
           </li>

@@ -1,46 +1,56 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect, useState } from 'react';
-import metricImage from '../../assets/images/metric-image.png';
+import { useMemo } from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
-import MetricSimilarList from './components/MetricsSimilarList/MetricsSimilarList';
-import {
-  similarPhotosArray,
-} from './MetricsTestValues.data';
-import MetricsInfo from './components/MetricsInfo/MetricsInfo';
+// import MetricSimilarList from './components/MetricsSimilarList/MetricsSimilarList';
+
+import { MetricsContainer } from './sections/metrics/MetricsContainer';
+import { useParams } from 'react-router-dom';
+import { MetricsStateContext } from './sections/metrics/state/MetricsStateContext';
+import { MetricsState } from './sections/metrics/state/MetricsState';
+import { PhotoStateContext } from './sections/photo/state/PhotoStateContext';
+import { PhotoContainer } from './sections/photo/PhotoContainer';
+import { PhotoState } from './sections/photo/state/PhotoState';
 
 function MetricsPage() {
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    galleryId,
+    id
+  } = useParams();
 
-  const delay = 1;
+  const photoState = useMemo(
+    () => new PhotoState(),
+    [],
+  )
 
-  useEffect(() => {
-    const timer1 = setTimeout(() => setIsLoading(false), delay * 1000);
-    return () => {
-      clearTimeout(timer1);
-    };
-  }, []);
+  const metricsState = useMemo(
+    () => new MetricsState(),
+    [],
+  )
 
   return (
     <div className="metrics-page">
       <Breadcrumbs />
       <div className="metrics-page__wrapper">
-        <div className="metrics-page__image-container">
-          <img
-            src={metricImage}
-            className="metrics-page__image"
-            alt="metric"
-            draggable={false}
+
+        <PhotoStateContext.Provider value={photoState}>
+          <PhotoContainer
+            galleryId={Number(galleryId)}
+            photoId={Number(id)}
           />
-        </div>
+        </PhotoStateContext.Provider>
 
-        <MetricsInfo isLoading={isLoading} />
+        <MetricsStateContext.Provider value={metricsState}>
+          <MetricsContainer
+            galleryId={Number(galleryId)}
+            photoId={Number(id)}
+          />
+        </MetricsStateContext.Provider>
 
-        <MetricSimilarList
+        {/* <MetricSimilarList
           isLoading={isLoading}
           similarPhotosArray={similarPhotosArray}
-        />
+        /> */}
       </div>
-
     </div>
   );
 }

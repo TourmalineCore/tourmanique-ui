@@ -82,5 +82,5 @@ docker build -t tourmanique-ui .
 
 ### Run
 ```bash
-docker run --detach --publish 7551:80 --rm --name tourmanique-ui --env ENV_KEY="'dev'" --env API_ROOT="'http://localhost:7501/api'" tourmanique-ui
+docker run --detach --publish 9551:80 --rm --name tourmanique-ui --env ENV_KEY="'dev'" --env API_ROOT="'http://localhost:7501/api'" tourmanique-ui
 ```

@@ -1,11 +1,34 @@
-import CircleProgressBar from '../../../../components/CircleProgressBar/CircleProgressBar';
-import {
-  associationsArray, colorsArray, emotionsArray, objectsArray,
-} from '../../MetricsTestValues.data';
+import CircleProgressBar from '../../../../../../components/CircleProgressBar/CircleProgressBar';
 
 function MetricsInfo({
+  uniqueness: {
+    mainInPercentage,
+    colorsInPercentage,
+    otherInPercentage,
+  },
+  features: {
+    associations,
+    colors,
+    emotions,
+    objects,
+  },
   isLoading,
 }: {
+  uniqueness: {
+    mainInPercentage: number,
+    colorsInPercentage: number,
+    otherInPercentage: number,
+  },
+  features: {
+    associations: string[],
+    colors: {
+      red: number,
+      green: number,
+      blue: number,
+    }[],
+    emotions: string[],
+    objects: string[],
+  }
   isLoading: boolean;
 }) {
   return (
@@ -21,7 +44,7 @@ function MetricsInfo({
               </div>
             ) : (
               <CircleProgressBar
-                percentage={52}
+                percentage={mainInPercentage}
                 circleWidth={72}
                 strokeWidth={7}
                 radius={32}
@@ -42,7 +65,7 @@ function MetricsInfo({
                   <span
                     className="metrics-info__image-loader-text"
                   >
-                    {20}
+                    {colorsInPercentage}
                     % completed
                   </span>
                 </div>
@@ -52,12 +75,12 @@ function MetricsInfo({
                     <div
                       className="metrics-info__bar-progress"
                       style={{
-                        width: `${20}%`,
+                        width: `${colorsInPercentage}%`,
                       }}
                     />
                   </div>
                   <h2 className="metrics-info__bar-percentage-text">
-                    {20}
+                    {colorsInPercentage}
                     <span>%</span>
                   </h2>
                 </div>
@@ -80,7 +103,7 @@ function MetricsInfo({
                     <span
                       className="metrics-info__image-loader-text"
                     >
-                      {15}
+                      {otherInPercentage}
                       % completed
                     </span>
                   </div>
@@ -90,12 +113,12 @@ function MetricsInfo({
                       <div
                         className="metrics-info__bar-progress"
                         style={{
-                          width: `${15}%`,
+                          width: `${otherInPercentage}%`,
                         }}
                       />
                     </div>
                     <h2 className="metrics-info__bar-percentage-text">
-                      {15}
+                      {otherInPercentage}
                       <span>%</span>
                     </h2>
                   </div>
@@ -122,7 +145,7 @@ function MetricsInfo({
             </div>
           ) : (
             <div className="metrics-info__colors">
-              {colorsArray.map((color) => (
+              {colors.map((color) => (
                 <span
                   key={color.blue + color.red + color.green}
                   className="metrics-info__color"
@@ -149,7 +172,7 @@ function MetricsInfo({
             </div>
           ) : (
             <div className="metrics-info__tags">
-              {emotionsArray.map((emotion) => (
+              {emotions.map((emotion) => (
                 <span
                   key={emotion}
                   data-cy="emotion"
@@ -175,7 +198,7 @@ function MetricsInfo({
             </div>
           ) : (
             <div className="metrics-info__tags">
-              {objectsArray.map((object) => (
+              {objects.map((object) => (
                 <span
                   key={object}
                   data-cy="object"
@@ -201,7 +224,7 @@ function MetricsInfo({
             </div>
           ) : (
             <div className="metrics-info__tags">
-              {associationsArray.map((association) => (
+              {associations.map((association) => (
                 <span
                   key={association}
                   data-cy="association"

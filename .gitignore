@@ -106,3 +106,5 @@ dist
 .eslintcache
 
 **/*/env-config.js
+
+**/.DS_Store
